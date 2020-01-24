@@ -14,7 +14,7 @@ export default class QuoteSearcher extends Component {
       .then(apiQuotes => {
         console.log("fetched object: ", apiQuotes.results);
         const fetchedQuotes = apiQuotes.results.map(apiQuote => {
-          return { ...apiQuote };
+          return { ...apiQuote, likes: 0 };
         });
 
         console.log("const fetchedQuotes = : ", fetchedQuotes);

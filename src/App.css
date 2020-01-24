@@ -7,6 +7,16 @@ i.far.fa-thumbs-down {
   font-size: 25px;
 }
 
+.liked {
+  color: green;
+  font-weight: bold;
+}
+
+.disliked {
+  color: red;
+  font-weight: bold;
+}
+
 .likebuttons {
   padding: 0.5rem;
 }
