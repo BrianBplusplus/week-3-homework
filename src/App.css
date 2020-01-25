@@ -1,5 +1,9 @@
+@import url("https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap");
+
 html {
   text-align: center;
+  font-family: "Bebas Neue", cursive;
+  font-size: 20px;
 }
 
 i.far.fa-thumbs-up,
@@ -7,16 +11,54 @@ i.far.fa-thumbs-down {
   font-size: 25px;
 }
 
+.quotes,
+.liked,
+.disliked {
+  border: solid;
+  border-radius: 5px;
+  box-shadow: 5px 5px 10px grey;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  margin-left: 15%;
+  margin-right: 15%;
+}
+
 .liked {
-  color: green;
+  font-size: 21px;
+  color: lightgreen;
   font-weight: bold;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
 .disliked {
   color: red;
-  font-weight: bold;
+  font-weight: 100;
 }
 
 .likebuttons {
   padding: 0.5rem;
+
+  box-shadow: 3px 4px 0px 0px #899599;
+  background: linear-gradient(to bottom, #ededed 5%, #bab1ba 100%);
+  background-color: #ededed;
+  border-radius: 50px;
+  border: 1px solid #d6bcd6;
+}
+
+.likebuttons:hover {
+  background: linear-gradient(to bottom, #bab1ba 5%, #ededed 100%);
+  background-color: #bab1ba;
+}
+.likebuttons:active {
+  position: relative;
+  top: 1px;
+}
+
+@media only screen and (max-width: 724px) {
+  .quotes,
+  .liked,
+  .disliked {
+    margin-left: 2%;
+    margin-right: 2%;
+  }
 }

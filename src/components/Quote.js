@@ -2,11 +2,10 @@ import React, { Component } from "react";
 
 export default class Quote extends Component {
   state = {
-    class: ""
+    class: "quotes"
   };
 
   handleLike = () => {
-    console.log("handleLike has been pressed");
     this.props.increaseLikes(this.props.id);
     this.setState({
       class: "liked"
@@ -14,7 +13,6 @@ export default class Quote extends Component {
   };
 
   handleDislike = () => {
-    console.log("handleDislike has been pressed");
     this.props.increaseDislikes(this.props.id);
     this.setState({
       class: "disliked"
