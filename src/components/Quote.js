@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 export default class Quote extends Component {
   state = {
-    class: ""
+    class: "quotes"
   };
 
   handleLike = () => {

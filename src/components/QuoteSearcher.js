@@ -106,7 +106,9 @@ export default class QuoteSearcher extends Component {
 
         {errorMessage === true &&
           !this.state.fetching &&
-          this.state.hassubmitted === true && <p>Could not find any results</p>}
+          this.state.hassubmitted === true && (
+            <p>...Could not find any quotes :(</p>
+          )}
 
         {quotes_copy.map((currentquote, index) => {
           return (
