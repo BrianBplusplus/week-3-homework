@@ -4,7 +4,9 @@ import Quote from "./Quote";
 export default class QuoteSearcher extends Component {
   state = {
     quotes: [],
-    fetching: true
+    fetching: true,
+    likes: 0,
+    dislikes: 0
   };
 
   componentDidMount() {
@@ -20,9 +22,7 @@ export default class QuoteSearcher extends Component {
         console.log("const fetchedQuotes = : ", fetchedQuotes);
         this.setState({
           quotes: fetchedQuotes,
-          fetching: false,
-          likes: 0,
-          dislikes: 0
+          fetching: false
         });
       })
       .catch(err => {
@@ -32,28 +32,63 @@ export default class QuoteSearcher extends Component {
 
   increaseLikes = id => {
     const likeData = this.state.quotes.map(quote => {
-      if (quote._id === id) {
-        console.log("id check == quote._id", quote._id, "id check == id", id);
-        return; //quote;
-        //return (this.state.likes = this.state.likes + 1);
+      if (quote._id === id && quote.likes !== true && quote.dislikes !== true) {
+        console.log("LIKE ---IF---");
+        this.state.likes = this.state.likes + 1;
+        return { ...quote, likes: true, dislikes: false };
+      } else if (
+        quote._id === id &&
+        quote.likes !== true &&
+        quote.dislikes === true
+      ) {
+        console.log("LIKE -----ELSE IF------");
+        this.state.likes = this.state.likes + 1;
+        this.state.dislikes = this.state.dislikes - 1;
+        return { ...quote, likes: true, dislikes: false };
       } else {
-        console.log("------ Else has been triggered --------");
-        return; //quote;
+        return quote;
       }
     });
+
     this.setState({
-      likes: likeData
+      quotes: likeData
+    });
+  };
+
+  increaseDislikes = id => {
+    const likeData = this.state.quotes.map(quote => {
+      if (quote._id === id && quote.dislikes !== true && quote.likes !== true) {
+        console.log("DISLIKE ---IF---");
+        this.state.dislikes = this.state.dislikes + 1;
+        return { ...quote, likes: false, dislikes: true };
+      } else if (
+        quote._id === id &&
+        quote.dislikes !== true &&
+        quote.likes === true
+      ) {
+        console.log("DISLIKE -----ELSE IF------");
+        this.state.dislikes = this.state.dislikes + 1;
+        this.state.likes = this.state.likes - 1;
+        return { ...quote, likes: false, dislikes: true };
+      } else {
+        return quote;
+      }
+    });
+
+    this.setState({
+      quotes: likeData
     });
   };
 
   render() {
     const quotes_copy = this.state.quotes;
-    console.log("copy of quotes: ", quotes_copy);
+    // console.log("copy of quotes: ", quotes_copy);
     return (
       <div className="quotecollection">
         <h1>Quotes</h1>
         <h2>
-          Likes: {this.state.likes} Dislikes: {this.state.dislikes}
+          Likes: {this.state.likes}
+          Dislikes: {this.state.dislikes}
         </h2>
 
         {this.state.fetching && "Loading..."}
@@ -66,6 +101,7 @@ export default class QuoteSearcher extends Component {
               text={currentquote.quoteText}
               author={currentquote.quoteAuthor}
               increaseLikes={this.increaseLikes}
+              increaseDislikes={this.increaseDislikes}
             />
           );
         })}

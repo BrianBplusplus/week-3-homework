@@ -3,8 +3,8 @@ import React, { Component } from "react";
 export default class Quote extends Component {
   state = {
     class: "",
-    like: 0,
-    dislike: 0
+    like: false,
+    dislike: false
   };
 
   handleLike = () => {
@@ -12,17 +12,18 @@ export default class Quote extends Component {
     this.props.increaseLikes(this.props.id);
     this.setState({
       class: "liked",
-      like: 1,
-      dislike: 0
+      like: true,
+      dislike: false
     });
   };
 
   handleDislike = () => {
     console.log("handleDislike has been pressed");
+    this.props.increaseDislikes(this.props.id);
     this.setState({
       class: "disliked",
-      like: 0,
-      dislike: 1
+      like: false,
+      dislike: true
     });
   };
 
