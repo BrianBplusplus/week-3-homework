@@ -1,17 +1,30 @@
 import React, { Component } from "react";
 import Quote from "./Quote";
+import Searcher from "./Searcher";
 
 export default class QuoteSearcher extends Component {
   state = {
     quotes: [],
-    fetching: true,
+    fetching: false,
     likes: 0,
     dislikes: 0
   };
 
-  componentDidMount() {
-    const query = "tree";
-    fetch(`https://quote-garden.herokuapp.com/quotes/search/${query}`)
+  search = input => {
+    console.log("Search got triggered");
+    console.log(input);
+
+    this.setState({
+      fetching: true,
+      quotes: [],
+      likes: 0,
+      dislikes: 0
+    });
+
+    const userSearch = input;
+    const api = `https://quote-garden.herokuapp.com/quotes/search/${userSearch}`;
+
+    fetch(api)
       .then(response => response.json())
       .then(apiQuotes => {
         console.log("fetched object: ", apiQuotes.results);
@@ -28,7 +41,7 @@ export default class QuoteSearcher extends Component {
       .catch(err => {
         console.warn("error", err);
       });
-  }
+  };
 
   increaseLikes = id => {
     const likeData = this.state.quotes.map(quote => {
@@ -82,13 +95,13 @@ export default class QuoteSearcher extends Component {
 
   render() {
     const quotes_copy = this.state.quotes;
-    // console.log("copy of quotes: ", quotes_copy);
+    console.log("copy of quotes: ", quotes_copy);
     return (
       <div className="quotecollection">
         <h1>Quotes</h1>
+        <Searcher event={12} search={this.search} />
         <h2>
-          Likes: {this.state.likes}
-          Dislikes: {this.state.dislikes}
+          Likes: {this.state.likes} / Dislikes: {this.state.dislikes}
         </h2>
 
         {this.state.fetching && "Loading..."}

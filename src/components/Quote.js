@@ -2,18 +2,14 @@ import React, { Component } from "react";
 
 export default class Quote extends Component {
   state = {
-    class: "",
-    like: false,
-    dislike: false
+    class: ""
   };
 
   handleLike = () => {
     console.log("handleLike has been pressed");
     this.props.increaseLikes(this.props.id);
     this.setState({
-      class: "liked",
-      like: true,
-      dislike: false
+      class: "liked"
     });
   };
 
@@ -21,16 +17,13 @@ export default class Quote extends Component {
     console.log("handleDislike has been pressed");
     this.props.increaseDislikes(this.props.id);
     this.setState({
-      class: "disliked",
-      like: false,
-      dislike: true
+      class: "disliked"
     });
   };
 
   render() {
     return (
       <div className={this.state.class}>
-        <h3>id test:{this.props.id}</h3>
         <p>"{this.props.text}"</p>
         <p>By: {this.props.author}</p>
         <button onClick={this.handleLike} className="likebuttons">
