@@ -12,8 +12,10 @@ export default class QuoteSearcher extends Component {
   };
 
   search = input => {
-    console.log("Search got triggered");
-    console.log(input);
+    if (input.length === 0) {
+      alert("Please input a keyword");
+      return;
+    }
 
     this.setState({
       fetching: true,
@@ -29,12 +31,9 @@ export default class QuoteSearcher extends Component {
     fetch(api)
       .then(response => response.json())
       .then(apiQuotes => {
-        console.log("fetched object: ", apiQuotes.results);
         const fetchedQuotes = apiQuotes.results.map(apiQuote => {
           return { ...apiQuote };
         });
-
-        console.log("const fetchedQuotes = : ", fetchedQuotes);
 
         this.setState({
           quotes: fetchedQuotes,
@@ -49,7 +48,6 @@ export default class QuoteSearcher extends Component {
   increaseLikes = id => {
     const likeData = this.state.quotes.map(quote => {
       if (quote._id === id && quote.likes !== true && quote.dislikes !== true) {
-        console.log("LIKE ---IF---");
         this.state.likes = this.state.likes + 1;
         return { ...quote, likes: true, dislikes: false };
       } else if (
@@ -57,7 +55,6 @@ export default class QuoteSearcher extends Component {
         quote.likes !== true &&
         quote.dislikes === true
       ) {
-        console.log("LIKE -----ELSE IF------");
         this.state.likes = this.state.likes + 1;
         this.state.dislikes = this.state.dislikes - 1;
         return { ...quote, likes: true, dislikes: false };
@@ -74,7 +71,6 @@ export default class QuoteSearcher extends Component {
   increaseDislikes = id => {
     const likeData = this.state.quotes.map(quote => {
       if (quote._id === id && quote.dislikes !== true && quote.likes !== true) {
-        console.log("DISLIKE ---IF---");
         this.state.dislikes = this.state.dislikes + 1;
         return { ...quote, likes: false, dislikes: true };
       } else if (
@@ -82,7 +78,6 @@ export default class QuoteSearcher extends Component {
         quote.dislikes !== true &&
         quote.likes === true
       ) {
-        console.log("DISLIKE -----ELSE IF------");
         this.state.dislikes = this.state.dislikes + 1;
         this.state.likes = this.state.likes - 1;
         return { ...quote, likes: false, dislikes: true };
@@ -99,7 +94,6 @@ export default class QuoteSearcher extends Component {
   render() {
     const quotes_copy = this.state.quotes;
     const errorMessage = quotes_copy.length === 0 ? true : false;
-    console.log("copy of quotes: ", quotes_copy);
     return (
       <div className="quotecollection">
         <h1>Quotes</h1>

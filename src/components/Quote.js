@@ -6,7 +6,6 @@ export default class Quote extends Component {
   };
 
   handleLike = () => {
-    console.log("handleLike has been pressed");
     this.props.increaseLikes(this.props.id);
     this.setState({
       class: "liked"
@@ -14,7 +13,6 @@ export default class Quote extends Component {
   };
 
   handleDislike = () => {
-    console.log("handleDislike has been pressed");
     this.props.increaseDislikes(this.props.id);
     this.setState({
       class: "disliked"
