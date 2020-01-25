@@ -14,13 +14,15 @@ export default class QuoteSearcher extends Component {
       .then(apiQuotes => {
         console.log("fetched object: ", apiQuotes.results);
         const fetchedQuotes = apiQuotes.results.map(apiQuote => {
-          return { ...apiQuote, likes: 0 };
+          return { ...apiQuote };
         });
 
         console.log("const fetchedQuotes = : ", fetchedQuotes);
         this.setState({
           quotes: fetchedQuotes,
-          fetching: false
+          fetching: false,
+          likes: 0,
+          dislikes: 0
         });
       })
       .catch(err => {
@@ -28,12 +30,31 @@ export default class QuoteSearcher extends Component {
       });
   }
 
+  increaseLikes = id => {
+    const likeData = this.state.quotes.map(quote => {
+      if (quote._id === id) {
+        console.log("id check == quote._id", quote._id, "id check == id", id);
+        return; //quote;
+        //return (this.state.likes = this.state.likes + 1);
+      } else {
+        console.log("------ Else has been triggered --------");
+        return; //quote;
+      }
+    });
+    this.setState({
+      likes: likeData
+    });
+  };
+
   render() {
     const quotes_copy = this.state.quotes;
     console.log("copy of quotes: ", quotes_copy);
     return (
       <div className="quotecollection">
         <h1>Quotes</h1>
+        <h2>
+          Likes: {this.state.likes} Dislikes: {this.state.dislikes}
+        </h2>
 
         {this.state.fetching && "Loading..."}
 
@@ -41,8 +62,10 @@ export default class QuoteSearcher extends Component {
           return (
             <Quote
               key={index}
+              id={currentquote._id}
               text={currentquote.quoteText}
               author={currentquote.quoteAuthor}
+              increaseLikes={this.increaseLikes}
             />
           );
         })}
