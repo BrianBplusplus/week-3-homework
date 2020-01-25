@@ -7,12 +7,25 @@ export default class QuoteSearcher extends Component {
     quotes: [],
     fetching: true,
     likes: 0,
-    dislikes: 0
+    dislikes: 0,
+    searchinput: "tree"
+  };
+
+  search = input => {
+    console.log("Search got triggered");
+    console.log(input);
+
+    this.setState({
+      fetching: true
+    });
+
+    const userSearch = input;
+    const api = `https://quote-garden.herokuapp.com/quotes/search/${userSearch}`;
   };
 
   componentDidMount() {
-    const query = "tree";
-    fetch(`https://quote-garden.herokuapp.com/quotes/search/${query}`)
+    const api = `https://quote-garden.herokuapp.com/quotes/search/${this.state.searchinput}`;
+    fetch(api)
       .then(response => response.json())
       .then(apiQuotes => {
         console.log("fetched object: ", apiQuotes.results);
@@ -87,7 +100,7 @@ export default class QuoteSearcher extends Component {
     return (
       <div className="quotecollection">
         <h1>Quotes</h1>
-        <Searcher />
+        <Searcher event={12} search={this.search} />
         <h2>
           Likes: {this.state.likes} / Dislikes: {this.state.dislikes}
         </h2>

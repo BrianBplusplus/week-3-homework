@@ -10,12 +10,13 @@ export default class Searcher extends Component {
   }
 
   handleChange(event) {
-    this.setState({ value: event.target.value.toUpperCase() });
+    this.setState({ value: event.target.value });
   }
 
   handleSubmit(event) {
-    alert("A name was submitted: " + this.state.value);
     event.preventDefault();
+    this.props.search(this.state.value);
+    // alert("A name was submitted: " + this.state.value);
   }
 
   render() {
@@ -26,6 +27,7 @@ export default class Searcher extends Component {
             type="text"
             value={this.state.value}
             onChange={this.handleChange}
+            onSubmit={this.handleSubmit}
           />
         </label>
         <input type="submit" value="Search!" />
