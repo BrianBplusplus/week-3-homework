@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Quote from "./Quote";
+import Searcher from "./Searcher";
 
 export default class QuoteSearcher extends Component {
   state = {
@@ -86,9 +87,9 @@ export default class QuoteSearcher extends Component {
     return (
       <div className="quotecollection">
         <h1>Quotes</h1>
+        <Searcher />
         <h2>
-          Likes: {this.state.likes}
-          Dislikes: {this.state.dislikes}
+          Likes: {this.state.likes} / Dislikes: {this.state.dislikes}
         </h2>
 
         {this.state.fetching && "Loading..."}

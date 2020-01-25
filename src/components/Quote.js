@@ -30,7 +30,6 @@ export default class Quote extends Component {
   render() {
     return (
       <div className={this.state.class}>
-        <h3>id test:{this.props.id}</h3>
         <p>"{this.props.text}"</p>
         <p>By: {this.props.author}</p>
         <button onClick={this.handleLike} className="likebuttons">
