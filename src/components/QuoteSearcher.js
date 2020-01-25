@@ -7,7 +7,8 @@ export default class QuoteSearcher extends Component {
     quotes: [],
     fetching: false,
     likes: 0,
-    dislikes: 0
+    dislikes: 0,
+    hassubmitted: false
   };
 
   search = input => {
@@ -18,7 +19,8 @@ export default class QuoteSearcher extends Component {
       fetching: true,
       quotes: [],
       likes: 0,
-      dislikes: 0
+      dislikes: 0,
+      hassubmitted: true
     });
 
     const userSearch = input;
@@ -33,6 +35,7 @@ export default class QuoteSearcher extends Component {
         });
 
         console.log("const fetchedQuotes = : ", fetchedQuotes);
+
         this.setState({
           quotes: fetchedQuotes,
           fetching: false
@@ -95,16 +98,21 @@ export default class QuoteSearcher extends Component {
 
   render() {
     const quotes_copy = this.state.quotes;
+    const errorMessage = quotes_copy.length === 0 ? true : false;
     console.log("copy of quotes: ", quotes_copy);
     return (
       <div className="quotecollection">
         <h1>Quotes</h1>
-        <Searcher event={12} search={this.search} />
+        <Searcher search={this.search} />
         <h2>
           Likes: {this.state.likes} / Dislikes: {this.state.dislikes}
         </h2>
 
         {this.state.fetching && "Loading..."}
+
+        {errorMessage === true &&
+          !this.state.fetching &&
+          this.state.hassubmitted === true && <p>Could not find any results</p>}
 
         {quotes_copy.map((currentquote, index) => {
           return (
