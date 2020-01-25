@@ -16,7 +16,6 @@ export default class Searcher extends Component {
   handleSubmit(event) {
     event.preventDefault();
     this.props.search(this.state.value);
-    // alert("A name was submitted: " + this.state.value);
   }
 
   render() {

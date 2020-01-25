@@ -5,10 +5,9 @@ import Searcher from "./Searcher";
 export default class QuoteSearcher extends Component {
   state = {
     quotes: [],
-    fetching: true,
+    fetching: false,
     likes: 0,
-    dislikes: 0,
-    searchinput: "tree"
+    dislikes: 0
   };
 
   search = input => {
@@ -16,15 +15,15 @@ export default class QuoteSearcher extends Component {
     console.log(input);
 
     this.setState({
-      fetching: true
+      fetching: true,
+      quotes: [],
+      likes: 0,
+      dislikes: 0
     });
 
     const userSearch = input;
     const api = `https://quote-garden.herokuapp.com/quotes/search/${userSearch}`;
-  };
 
-  componentDidMount() {
-    const api = `https://quote-garden.herokuapp.com/quotes/search/${this.state.searchinput}`;
     fetch(api)
       .then(response => response.json())
       .then(apiQuotes => {
@@ -42,7 +41,7 @@ export default class QuoteSearcher extends Component {
       .catch(err => {
         console.warn("error", err);
       });
-  }
+  };
 
   increaseLikes = id => {
     const likeData = this.state.quotes.map(quote => {
@@ -96,7 +95,7 @@ export default class QuoteSearcher extends Component {
 
   render() {
     const quotes_copy = this.state.quotes;
-    // console.log("copy of quotes: ", quotes_copy);
+    console.log("copy of quotes: ", quotes_copy);
     return (
       <div className="quotecollection">
         <h1>Quotes</h1>
